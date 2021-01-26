@@ -459,7 +459,7 @@ python 中`优先级从低到高`的常用运算符
 ###### force.py
 
 ```python
-#coding=utf-8		# 编码说明
+#coding=utf-8		# 编码说明 与 文本编辑器的编码方式保持一致
 '''
 my first program.	# 块注释，对本程序文件的说明
 filename: force.py
