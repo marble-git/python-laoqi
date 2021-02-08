@@ -536,20 +536,20 @@ False
 	  File "<stdin>", line 1, in <module>
 	ValueError: empty separator
 	```
+
 	+ 字符串的 `join()` 方法类似 `split()` 方法的逆过程，可以用某个字符把另一种对象组合为一个字符串
 	```python
 	>>> help(str.join)
 	Help on method_descriptor:
-
 	join(self, iterable, /)
 	    Concatenate any number of strings.
-	    
 	    The string whose method is called is inserted in between each given string.
 	    The result is returned as a new string.
-	    
 	    Example: '.'.join(['ab', 'pq', 'rs']) -> 'ab.pq.rs'
 	```
+
 	+ 该方法的参数中 `"iterable"`  含义为 `可迭代的` ,`列表对象`和`字符串对象`都是`可迭代的`
+
 	```python
 	>>> a
 	'l love python'
