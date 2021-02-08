@@ -248,6 +248,7 @@ False
 
 3. `len()函数`,求序列长度
 	- 使用`内置函数 len()` 得到`序列的元素个数`(`字符串长度`)
+
 	```python
 	>>> help(len)
 	Help on built-in function len in module builtins:
@@ -268,6 +269,7 @@ False
 	- 判断`字符`是否`在字符串内`
 	- 判断`字符串`是否`在字符串内`
 	- `返回类型`为`bool`
+
 	```python
 	>>> r
 	'python book'
@@ -503,6 +505,7 @@ False
 
 2. 分隔`split`和组合`join`
 	- 字符串对象提供了根据某个符号分割字符串内容的方法 `split()`
+
 	```python
 	>>> help(str.split)
 
@@ -519,7 +522,9 @@ False
 	      Maximum number of splits to do.
 	      -1 (the default value) means no limit.
 	```
+
 	- __特别注意__ 如果没有指定特定的分隔符， python会默认空格 ` ` 为分隔符
+
 	```python
 	>>> a = 'l love python'
 	>>> a.split()
