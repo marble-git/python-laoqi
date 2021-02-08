@@ -1,3 +1,6 @@
+@[toc]
+
+
 ## Welcome to GitHub Pages
 ### [link to catalogue](2021-01-21-catalogue.md)
 #### 测试添加中文
