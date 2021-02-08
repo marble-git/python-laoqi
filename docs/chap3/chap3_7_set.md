@@ -279,8 +279,10 @@ set()
 
 
 ### 3.7.3 不变的集合
+
 + 以 `set()` 函数创建的集合都是 **可原地修改** 的集合，即 **可变集合**
 + 还有1种集合是 **不可变集合** ，创建这种集合要使用 `frozenset()` 函数
+
 ```python
 >>> help(frozenset)
 Help on class frozenset in module builtins:
@@ -297,13 +299,17 @@ frozenset({'p', 'o', 't', 'h', 'n', 'y'})
 >>> frozenset(set('abc')) 
 frozenset({'a', 'c', 'b'})
 ```
+
 + 使用 `dir(frozenset)` 查看其属性和方法
+
 ```python
 >>> dir(frozenset)
 ['__and__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__or__', '__rand__', '__reduce__', '__reduce_ex__', '__repr__', '__ror__', '__rsub__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__xor__', 'copy', 'difference', 'intersection', 'isdisjoint', 'issubset', 'issuperset', 'symmetric_difference', 'union']
 ```
+
 + `frozenset` 没有`set` 那些实现集合更改的操作方法;但两者都有一些与运算相关的方法
 + 不可变集合 `frozenset` 可以作为字典的键，而可变集合 `set` 不可以
+
 ```python
 >>> f_s = frozenset('abc') ; f_s ; {f_s:1}
 frozenset({'a', 'c', 'b'})
@@ -322,6 +328,7 @@ TypeError: unhashable type: 'set'
 * 集合间的运算有: `'union |' 'intersection &' 'difference -' 'symmetric_difference ^'`
 
 #### 1. 元素与集合的关系
+
 ```python
 >>> s = set('python') ; s 
 {'p', 'o', 't', 'h', 'n', 'y'}
@@ -332,7 +339,9 @@ True
 True
 False
 ```
+
 + 使用 `len` 计算集合的元素个数
+
 ```python
 >>> s ;len(s)
 {'p', 'o', 't', 'h', 'n', 'y'}

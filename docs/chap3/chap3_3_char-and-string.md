@@ -53,13 +53,16 @@ a|=|"|python|"
 ----|----|------|----|----
 变量|变量引用对象|字符串标志|字符串内容|字符串标志
 
+
 2. `字符串`是`python内置对象`，用`type()查看，返回值为 `str`是`字符串的类型名称`
+
 ```python
 >>> a= 'python'
 >>> type(a)
 <class 'str'>
 ```
 3. `单引号`和`双引号`键盘输入时必须为`英文状态`，并且`成对出现`
+
 ```python
 >>> "i love python'
   File "<stdin>", line 1
@@ -68,6 +71,7 @@ a|=|"|python|"
 SyntaxError: EOL while scanning string literal
 ```
 4. 引号中可以放 `字母`, `汉字`, `数字`等
+
 ```python
 >>> type(22)
 <class 'int'>
@@ -75,6 +79,7 @@ SyntaxError: EOL while scanning string literal
 <class 'str'>
 ```
 5. 注意，`表面看` ~~由数字组成的字符串可以通过`int()`和`str()`实现类型转化~~，实质上，***`int('250')`是以`字符串` `"250"`为参数创建的整数类型实例***,详见[第6章](../chap6)
+
 ```python
 >>> int('250')
 250
@@ -88,6 +93,7 @@ ValueError: invalid literal for int() with base 10: 'a'
 10
 ```
 6. `嵌套错误` 与 `内置函数print()`
+
 ```python
 >>> print('what's your  name')
   File "<stdin>", line 1
@@ -111,15 +117,16 @@ SyntaxError: invalid syntax
 	```
 7. 解决方法
 	* `单引号` 和 `双引号` `嵌套`
-```python
->>> print("what's your  name?")
-what's your  name?
-```
+	```python
+	>>> print("what's your  name?")
+	what's your  name?
+	```
 	* `转义符`
-```python
->>> print('what\'s your  name?')
-what's your  name?
-```
+	```python
+	>>> print('what\'s your  name?')
+	what's your  name?
+	```
+
 python常用转义字符及其说明
 
 转义字符|描述|转义字符|描述
@@ -132,6 +139,8 @@ python常用转义字符及其说明
 `\b`	|退格		|`\0yy`	|8进制数，yy代表字符，如`\012`表换行
 `\e`	|转义		|`\xyy`	|16进制数。yy表字符，如`\x0a`表换行
 `\000`	|空		|`\other`|其他字符以普通格式输出
+
+
 ```python
 >>> print('sadf\x0a123\012abc')
 sadf
@@ -143,53 +152,54 @@ abc
 	* 字符串中出现 `\` 符号的解决办法
 		1. 继续使用`转义符号` `\\`
 		2. 使用`原始字符串` `[rR]"str"` ,该方法在web开发中设置网站目录结构时非常有用
-```python
->>> print('c:\new')
-c:
-ew
->>> print('c:\\new')
-c:\new
->>> print(r'c:\new')
-c:\new
-```
+		```python
+		>>> print('c:\new')
+		c:
+		ew
+		>>> print('c:\\new')
+		c:\new
+		>>> print(r'c:\new')
+		c:\new
+		```
 	* 长字符串
-```python
->>> print('abc\n123\ndef\n456')
-abc
-123
-def
-456
->>> a= '''
-... 123
-... asd
-... 345
-... fgh
-... 4567'''
->>> a
-'\n123\nasd\n345\nfgh\n4567'
->>> a= '''123
-... asd
-... 456
-... gfh'''
->>> a
-'123\nasd\n456\ngfh'
->>> a='''asd
-... asd
-... 123
-... '''
->>> a
-'asd\nasd\n123\n'
->>> a='''123
-...     qwe
-...             a w
-... '''
->>> a
-'123\n\tqwe\n\t\ta w\n'
-```
+	```python
+	>>> print('abc\n123\ndef\n456')
+	abc
+	123
+	def
+	456
+	>>> a= '''
+	... 123
+	... asd
+	... 345
+	... fgh
+	... 4567'''
+	>>> a
+	'\n123\nasd\n345\nfgh\n4567'
+	>>> a= '''123
+	... asd
+	... 456
+	... gfh'''
+	>>> a
+	'123\nasd\n456\ngfh'
+	>>> a='''asd
+	... asd
+	... 123
+	... '''
+	>>> a
+	'asd\nasd\n123\n'
+	>>> a='''123
+	...     qwe
+	...             a w
+	... '''
+	>>> a
+	'123\n\tqwe\n\t\ta w\n'
+	```
 
 ### 3.3.3 字符串基本操作
 
 * 使用 `is` 判断两个对象是否为同一个
+
 ```python
 >>> a='hello world'
 >>> b='ehllo world'
@@ -396,6 +406,7 @@ False
 ### 3.3.5 键盘输入
 
 1. python提供内置函数`input()`用于`接收用户通过键盘输入`的`信息`
+
 	```python
 	>>> help(input)
 	Help on built-in function input in module builtins:
@@ -411,6 +422,7 @@ False
 	(END)
 	```
 2. `input()`函数的`返回值`是一个`字符串类型`的对象
+
 	```python
 	>>> name = input('input your name:')
 	input your name:python
@@ -420,6 +432,7 @@ False
 	<class 'str'>
 	```
 3. __不论通过键盘输入什么字符，`input()`函数的返回值都是字符串__
+
 	```python
 	>>> age = input('how old are you? ')
 	how old are you? 10
@@ -463,6 +476,8 @@ False
 	['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'removeprefix', 'removesuffix', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
 	>>> 
 	```
+
+
 1. `"is"` 开头的方法
 	+  仔细观察 `dir(str)`  的结果，其中有若干以 `is`  作为名称开始的方法
 	+ 这些方法都返回了 __`bool`__ 类型， 只有 `True` 和 `False`  两个值
@@ -485,6 +500,7 @@ False
 	    A string is a digit string if all characters in the string are digits and there
 	    is at least one character in the string.
 	```
+
 2. 分隔`split`和组合`join`
 	- 字符串对象提供了根据某个符号分割字符串内容的方法 `split()`
 	```python
@@ -546,6 +562,8 @@ False
 	>>> '-'.join('python')
 	'p-y-t-h-o-n'
 	```
+
+
 3. 使用`str.strip()` ，`str,lstrip()` 和`str.rstrip()` 方法`移除`  __字符串开头和结尾__ 的 ___特定字符___ (默认空格)
 	```python
 	>>> help(str.strip)
@@ -579,6 +597,7 @@ False
 ### 3.3.7 字符串格式化输出
 
 1. 使用字符串的 `format` 方法，实现 **格式化输出**
+
 ```python
 >>> help(str.format)
 Help on method_descriptor:
@@ -590,6 +609,7 @@ format(...)
 >>> 'i like {0} and {1}.'.format('python','physics')
 'i like python and physics.'
 ```
+
 2. 占位符`{}`
 	* 字符串 `'i like {0} and {1}.'` ，其中`{0}` 和`{1}` 占据了2个位置，它们就是占位符
 	* `占位符`中的 __数字__ 就是 `format` 方法的`参数列表`的 __顺序号__ 
@@ -599,6 +619,7 @@ format(...)
 	>>> 'i like {1} and {0}, {0} is a programming language.'.format('python','physics')
 	'i like physics and python, python is a programming language.'
 	```
+
 3. `格式化输出`的`指定格式`
 	1. 占位符序号与格式化字符使用 `:` 分割
 	2. `<`,`>` 和 `^` 分别表示 __左对齐__ ， __右对齐__ ，和 __居中__ 
@@ -643,14 +664,18 @@ format(...)
 		>>> 'she is {0:04d} years old and {1:^06.1f} m in height.'.format(28,1.68)
 		'she is 0028 years old and 01.700 m in height.'
 		```
+
 4. 字符串的`format` 方法进行格式化输出，实现的其他方式
+
 ```python
 >>> str.format('i like {0} and {1}.','python','physics')
 'i like python and physics.'
 >>> 'i like {subject} and {lang}'.format(lang='python',subject='physics')
 'i like physics and python'
 ```
+
 5. 字符串有 `format` 方法，内置函数中也有 `format`  方法
+
 ```python
 >>> h = 'hello world'
 >>> format(h,'>20')
@@ -666,7 +691,9 @@ format(...)
 >>> format(h,'$^20')
 '$$$$hello world$$$$$'
 ```
+
 6. format 语法详细
+
 ```python
 >>> help(format)
 format(value, format_spec='', /)
@@ -678,6 +705,7 @@ format(value, format_spec='', /)
 (END)
 >>> help('FORMATTING')
 ```
+
 -----------------------------------------------------------------------------------
 ## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
 [catalogue]: ../2021-01-21-chap3.md

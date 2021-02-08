@@ -1,6 +1,8 @@
 ## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
 -----------------------------------------------------------------------------------
+
 ## 3.6 字典 `dictionary`
+
 * 字典`dictionary` 是专门为 **创建映射关系** 而提供的内置对象
 * 字典的属性和方法
 ```python
@@ -11,6 +13,7 @@
 
 #### 1. 使用`dict()`函数创建字典
 + `dict` 是字典类型名称，跟其他类型一样，也有相应的函数形式
+
 ```python
 Help on class dict in module builtins:
 class dict(object)
@@ -24,7 +27,9 @@ class dict(object)
  |  dict(**kwargs) -> new dictionary initialized with the name=value pairs
  |      in the keyword argument list.  For example:  dict(one=1, two=2)
 ```
+
 + 创建字典格式 `dict()`;`dict(**kwargs)` ;`a = dict(str1=value1, str2=value2, str3=value3)` str 表示字符串类型的键，value 表示键对应的值。使用此方式创建字典时，字符串不能带引号
+
 ```python
 >>> d = dict()
 >>> type(d) ; d
@@ -33,7 +38,9 @@ class dict(object)
 >>> dict(a=1,b=2)
 {'a': 1, 'b': 2}
 ```
+
 + 创建字典格式 `dict(mapping)`
+
 ```python
 >>> keys = ['a','b','c']
 >>> values = [1,2,3]
@@ -60,7 +67,14 @@ class dict(object)
 	>>> tuple(map(lambda x,y:(x * 2,y * 3),keys,values))
 	(('aa', 3), ('bb', 6), ('cc', 9))
 	```
+
+
+
+
+
+
 + 创建字典格式 `dict(iterable)` 
+
 ```python
 >>> demo = (('a',11),('bb',22),['c',33])
 >>> d = dict(demo) ; d ; type(d)
@@ -79,8 +93,12 @@ class dict(object)
 {'name': 'qiwsir', 'language': 'python'}
 <class 'dict'>
 ```
+
+
 #### 3. 通过`fromkeys()`方法创建字典
+
 + 这种创建方式通常用于初始化字典，设置 value 的默认值
+
 ```python
 >>> help(dict.fromkeys)
 Help on built-in function fromkeys:
@@ -95,11 +113,25 @@ fromkeys(iterable, value=None, /) method of builtins.type instance
 {'p': None, 'y': None, 't': None, 'h': None, 'o': None, 'n': None}
 ```
 
+
+
+
+
+
 #### 4. 字典的组成部分
+
+
+
+
+
 
 {	|'name'	|:		     |'qiwsir'|,		|'language'|:		     |'python'|}
 --------|-------|--------------------|--------|-----------------|----------|-----------------|--------|----
 字典标志|键`key`|`键`与`值`的`分隔符`|值`value`|`键值对`的分隔符	|键`key`|`键`与`值`的`分隔符`|值`value|字典标志
+
+
+
+
 
 
 #### 5. 字典的 *键`key`* 与 *值`value`* 的要求
@@ -301,8 +333,11 @@ setdefault(key, default=None, /) method of builtins.dict instance
 
 
 #### 2. 视图对象
+
+
 + **视图对象 `view object`** 是 `python 3`所特有的， `python 2`版本不具有视图对象
 + 字典获得视图对象的方法有 `D.items()`,`D.keys()`,`D.values()`
+
 ```python
 >>> help(d.items)
 Help on built-in function items:
@@ -374,6 +409,7 @@ dict_values(['python', None])
 ```
 
 #### 3. 增加键值对
+
 + 向字典增加键值对的方法有 `d[k] = v` ,  `d1 |= d2` 和 `D.update()`
 + `d[k]= v ` 方式 **一次增加一个键值对**
 
@@ -582,6 +618,7 @@ copy(...)
 ```
 
 #### 1. 赋值 
+
 + 引用: 对象在内存中所在位置的地址，称为引用 ; 引用实际是内存中的1个数字地址编号
 + 变量: 在python中，变量就是地址的1种表示形式，并不开辟存储空间
 + 通过1个例子说明变量和变量指向的引用就是一个东西
@@ -604,6 +641,7 @@ True
 ```
 
 #### 2. 浅拷贝
+
 + 浅拷贝的对象与原对象不是同一个对象
 ```python
 >>> b3 = b1.copy()
@@ -654,6 +692,7 @@ True
 
 #### 3. 深拷贝
 
+
 + `copy.deepcopy()` 进行 深拷贝
 
 ```python
@@ -688,9 +727,14 @@ True
 ```
 
 #### 4. 总结
+
+
 + 结论:无论深拷贝还是浅拷贝，复制的是容器对象，区别在于1层还是多层;对数字，字符串元组等没有内置拷贝方法
 + 浅拷贝只拷贝顶层引用
 + 深拷贝会逐层进行拷贝，直到拷贝的所有引用都是不可变引用为止
+
+
+
 
 
 
