@@ -4,6 +4,7 @@
 ## Welcome to GitHub Pages
 ### [link to catalogue](2021-01-21-catalogue.md)
 #### 测试添加中文
+# test change br
 * 直接打开github pages中的`*.md`文档会出现乱码，后缀用`.html`可以正常显示
 
 You can use the [editor on GitHub](https://github.com/marble-git/python-laoqi/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
