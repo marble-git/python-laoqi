@@ -4,7 +4,8 @@
 '''
     filename:triradian_radian.py
     chap:3
-    subject:9
+    subject:9 10.4
+    user input a,b,c
     conditions:side1,a,b,c of sides =3,7,9
     solution:radian A,B,C
 COS_C = (a^2+b^2-c^2 )/(2*a*b)
@@ -12,7 +13,13 @@ COS_C = (a^2+b^2-c^2 )/(2*a*b)
 
 import math
 
-sides = (3,7,9)
+#sides = (3,7,9)
+sides = tuple(eval(input("""
+Please enter the 3 sides of triangle 
+with the format of 'a,b,c': """)))
+
+#print(sides)
+
 results = []
 for i in range(3):
     a = sides[(i+0)%3] 

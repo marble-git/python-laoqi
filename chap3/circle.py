@@ -7,12 +7,14 @@ chap3 6. 已知圆的半径 R = 23 计算:
     1. 周长 和面积
     2. 打印结果，保留2位小数
     3. 调试无误
+    10.1 user input radius
 '''
 
 import math
 
 
-radius = 23
+#radius = 23
+radius = int(input("Please enter the radius of circle:"))
 
 circumference = 2 * radius * math.pi
 area = math.pow(radius,2) * math.pi
