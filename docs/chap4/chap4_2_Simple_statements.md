@@ -16,6 +16,22 @@
 
 ### 4.2.2 赋值 语句
 
++ 语法格式
+
+```
+assignment_stmt ::=  (target_list "=")+ (starred_expression | yield_expression)
+target_list     ::=  target ("," target)* [","]
+target          ::=  identifier
+                     | "(" [target_list] ")"
+                     | "[" [target_list] "]"
+                     | attributeref
+                     | subscription
+                     | slicing
+                     | "*" target
+```
+
+
+
 + `unpacking` `star_list` ___[PEP 3132 -- Extended Iterable Unpacking](https://www.python.org/dev/peps/pep-3132/)___
 
 + x,y,z = 1,'python',['hello','world']
