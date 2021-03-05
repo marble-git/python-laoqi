@@ -7,8 +7,8 @@ order /docs/*
 import os
 import re
 
-target_dir = 'docs/chap3/'
-cata = '../2021-01-21-chap3.md'
+target_dir = 'docs/chap4/'
+cata = '../2021-01-21-chap4.md'
 
 lst = list(os.popen('ls -1 ' + target_dir ))
 file_names  = re.findall(r'(chap.*md)\n',''.join(lst))
