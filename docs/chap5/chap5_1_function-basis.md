@@ -1,0 +1,131 @@
+## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
+-----------------------------------------------------------------------------------
+
+# 第5章 hanshu
+
+## 5.1 函数基础
+
+### 5.1.1 自定义函数
+
++ 函数定义语法
+```pybnf
+funcdef                   ::=  [decorators] "def" funcname "(" [parameter_list] ")"
+                               ["->" expression] ":" suite
+decorators                ::=  decorator+
+decorator                 ::=  "@" assignment_expression NEWLINE
+dotted_name               ::=  identifier ("." identifier)*
+parameter_list            ::=  defparameter ("," defparameter)* "," "/" ["," [parameter_list_no_posonly]]
+                                 | parameter_list_no_posonly
+parameter_list_no_posonly ::=  defparameter ("," defparameter)* ["," [parameter_list_starargs]]
+                               | parameter_list_starargs
+parameter_list_starargs   ::=  "*" [parameter] ("," defparameter)* ["," ["**" parameter [","]]]
+                               | "**" parameter [","]
+parameter                 ::=  identifier [":" expression]
+defparameter              ::=  parameter ["=" expression]
+funcname                  ::=  identifier
+```
++ `def` 所在的这一行 包括后面的 __函数名__ 和 __参数列表__ ，统称为 ___函数头___
++ `funcname`函数名称的命名方式与变量的格式相同
++ `()` 圆括号不能省略,且与 `funcname`之间没有空格,圆括号内为 __参数列表__ 
++ 圆括号后 为英文冒号 `:` 表示 __函数命名结束__ 即将开始函数语句块
++ `function docs` 函数文档,对函数作用作简要说明
++ `suite` 函数语句块，也称 __函数体__ 缩进4个空格
++ `return` 函数结束,返回 ___1个或多个值___ 
++ `\` 仅位置参数  [PEP 570 -- Python Positional-Only Parameters](https://www.python.org/dev/peps/pep-0570/#positional-only-parameters)
++ `*` 后面的必须为关键字参数
++ `*args` 收集所有多余的 **位置参数**
++ `**kwargs` 收集所有 **函数未声明** 的 **关键字参数**
+
+```python
+def funcname(positional_only[=def_value],/,pos_or_kwd[=def_value],*,keyword_only[=def_value],**kwargs):
+    '''function docs'''
+    suite
+    return exp
+```
+
+
+
+
+
+### 5.1.2 调用函数
+
++ `callable()` 判断一个对象是否 **可执行**
++ 调用函数时传入的参数形式
+	- `positional_only`: ***仅按位置传参*** ,若定义时有默认值，则后续所有参数都必须有默认值
+	- `keyword`:指明传入的参数与函数声明中参数的对应关系 `x=1,y=2`
+	- `*args`:解包 tuple,list,range,generator...
+	- `**kwargs`:解包`mapping 对象` dict
++ python 中,参数 不可变对象是`值传递`,可变对象是`引用传递`
+
++ 调用形式 : `funcname(param_list)`
+`funcname(1,2,3,a=11,b=22,c=33,...)`
+
+
+
+
+### 5.1.3 返回值
+
++ `return` **中断** 函数的执行并返回
++ `没有return语句` 或 只有 `return` ,则返回 `None`
++ `return arg[,arg]*` 可以返回一个或多个值
+```python
+>>> a,b,c=(1,22,333)
+>>> a;b;c
+1
+22
+333
+>>> a,b,c=[1,22,333]
+>>> a;b;c
+1
+22
+333
+>>> def f(*args,**kwargs):
+...     print(locals())
+...     return args
+>>> a,b,c = f(11,22,333);a;b;c
+{'args': (11, 22, 333), 'kwargs': {}}
+11
+22
+333
+```
+
+
+
+
+
+### 5.1.4 参数收集
+
+
++ `*args`,`kwargs`收集多余参数
++ `name space`命名空间
++ `locals  -> enclosing function -> globals -> __builtins`
+
++ `locals()` 返回 **当前作用域** 中的 ***由局部变量和其值组成的字典***
++ `globals()` 返回 **当前作用域** 中的 ***由全局变量和其值组成的字典***
+
+```python
+>>> help(globals)
+Help on built-in function globals in module builtins:
+globals()
+    Return the dictionary containing the current scope's global variables.
+    NOTE: Updates to this dictionary *will* affect name lookups in the current
+    global scope and vice-versa.
+(END)
+>>> help(locals)
+Help on built-in function locals in module builtins:
+locals()
+    Return a dictionary containing the current scope's local variables.
+    NOTE: Whether or not updates to this dictionary will affect name lookups in
+    the local scope and vice-versa is *implementation dependent* and not
+    covered by any backwards compatibility guarantees.
+(END)
+```
+
+
+
+
+-----------------------------------------------------------------------------------
+## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
+[pre_chap]: 2021-01-21-chap0.md
+[next_chap]: 2021-01-21-chap2.md
+[catalogue]: 2021-01-21-catalogue.md
