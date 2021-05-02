@@ -42,6 +42,7 @@
 + 因为classmethod函数可以使用第1个参数，cls，来访问类变量，因此继承之后，cls自动就指向了继承后的类。注意，这是@classmethod与@staticmethod不一样的地方。也因为这个特性，决定了classmethod的应用会比staticmethod要广。
 + **类方法与当前类绑定**
 
+类方法与当前类绑定
 
 ```doctest
 >>> class A:
