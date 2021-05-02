@@ -4,6 +4,8 @@
 ## 6.4 类的方法
 + 方法(method): 根据定义，一个类中所有是函数对象的属性都是定义了其实例的相应方法。
 + [***实例的方法(p.f) 与 类的函数(P.f) 不是一回事***](https://docs.python.org/zh-cn/3/utorial/classes.html#method-objects)
+
+
 ```doctest
 >>> class P:
 ...     def f(self):
