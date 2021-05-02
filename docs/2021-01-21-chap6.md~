@@ -4,3 +4,18 @@
 
 
 ## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
+[catalogue]: ./2021-01-21-catalogue.md
+[pre_chap]: 2021-01-21-chap5.md
+[next_chap]: 2021-01-21-chap7.md
+[chap6_1]: chap6/chap6_1_OOP_Object_Oriented_Programming.md
+[chap6_2]: chap6/chap6_2_simple_class.md
+[chap6_3]: chap6/chap6_3_attribute.md
+[chap6_4]: chap6/chap6_4_method.md
+[chap6_5]: chap6/chap6_5_inheritance.md
+[chap6_6]: chap6/chap6_6_polymorphism.md
+[chap6_7]: chap6/chap6_7_encapsulation.md
+[chap6_8]: chap6/chap6_8_custom_object_types.md
+[chap6_9]: chap6/chap6_9_construction_method.md
+[chap6_10]: chap6/chap6_10_iterator.md
+[chap6_11]: chap6/chap6_11_generator.md
+[chap6_12]: chap6/chap6_12_metaclass.md
