@@ -10,6 +10,9 @@
 + `class.__base__`  获得该类的第1个直接基类
 + [`class.__bases__` 获得该类的所有直接基类组成的元组](https://blog.csdn.net/LaoYuanPython/article/details/93785166?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161771857716780264024311%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=161771857716780264024311&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~sobaiduend~default-3-93785166.pc_v2_rank_blog_default&utm_term=python+__bases__) [官方文档](https://docs.python.org/zh-cn/3.9/library/stdtypes.html?highlight=__bases__#special-attributes)
 + [`super()` ](https://docs.python.org/zh-cn/3.9/library/functions.html#super)
+
+
+
 ```doctest
 class super(object)
  |  super() -> same as super(__class__, <first argument>)
