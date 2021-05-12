@@ -12,7 +12,8 @@
 + 发布包流程
 + 第一步，创建一个包
 
-```root@kali-book:~/python-laoqi/chap7/test_project_release# tree -F
+```
+root@kali-book:~/python-laoqi/chap7/test_project_release# tree -F
 .
 ├── __init__.py
 ├── javaspeak/
@@ -31,6 +32,8 @@
 
 
 + 第二步，编写 `setup.py`
+
+
 
 ```
 #coding=utf-8
@@ -61,6 +64,8 @@ setup(
 + name:`str`将来发布到Pypi上时显示的名称(不一定与import或本包的顶级目录名称相同)
 + py_modules:`list`本包中与setup.py同级的`.py`模块
 + packages:`list`用于声明本包中的子包
+
+
 ```
 name
     A string specifying the name of the package.
@@ -88,6 +93,9 @@ classifiers
 
 
 + 第三步，本地安装测试
+
+
+
 ```
 python3 setup.py install
 python3
@@ -95,10 +103,17 @@ python3
 ```
 
 + 第四步，安装，升级 `setuptools,wheel,twine`
+
+
 ```
 pip install -U setuptools wheel twine
 ```
+
+
 + 文件打包,创建分发包，源码包，二进制包
+
+
+
 ```
 python3 setup.py sdist bdist
 ├── dist
@@ -142,7 +157,13 @@ root@kali-book:~/python-laoqi/chap7/test_project_release# tree
     ├── SOURCES.txt
     └── top_level.txt
 ```
+
+
+
 + 第五步，发布包
+
+
+
 ```
 root@kali-book:~/python-laoqi/chap7/test_project_release# twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 Uploading distributions to https://test.pypi.org/legacy/
@@ -159,6 +180,9 @@ https://test.pypi.org/project/test-pkg-marble/0.0.1/
 
 
 + 下载，安装，测试
+
+
+
 ```
 root@kali-book:~# pip install -i https://test.pypi.org/simple/ test-pkg-marble==0.0.1
 Looking in indexes: https://test.pypi.org/simple/

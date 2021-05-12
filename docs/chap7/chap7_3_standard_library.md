@@ -166,6 +166,8 @@ os.replace(src, dst, *, src_dir_fd=None, dst_dir_fd=None)
 
 
 + 查看目录中的文件 `os.listdir(path)`,`os.scandir(path)`
+
+
 ```
 os.scandir(path='.')
    返回一个 os.DirEntry 对象的迭代器，它们对应于由 path 指定目录中的条目。 这些条目会以任意顺序生成，并且不包括特殊条目 '.' 和 '..'。 如果有文件在迭代器创建之后在目录中被移除或添加，是否要包括该文件对应的条目并没有规定。
@@ -440,6 +442,8 @@ root@kali-book:~/python-laoqi/docs/chap7/code# find . -inum 10228674
 
 
 + 生成目录树中的文件名 `os.walk(top)`
+
+
 ```
 >>> os.walk('mypackage')
 <generator object _walk at 0x7fa7666f3b30>
@@ -478,6 +482,9 @@ os.uname()
 ```
 
 + 执行操作系统命令 `os.popen(cmd,mode)`,`os.system(cmd)`,`subprocess.call(cmd,shell=True) call(['ls','-1'])`
+
+
+
 ```
 >>> r = os.system('ls -1')
 command_add.py
