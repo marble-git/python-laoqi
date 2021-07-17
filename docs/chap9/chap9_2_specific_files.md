@@ -77,6 +77,7 @@ pip install openpyxl
 ```
 
 + 每个工作簿中至少有一个 ***工作表(worksheet)*** ，获取当前工作表
+
 ```doctest
 >>> ws = wb.active
 >>> ws
@@ -88,6 +89,8 @@ pip install openpyxl
 ```
 
 + 修改工作表的名称
+
+
 ```doctest
 >>> ws.title = 'python'
 >>> ws
@@ -98,6 +101,8 @@ pip install openpyxl
 
 
 + 可以继续增加工作表
+
+
 ```dcotest
 >>> help(wb.create_sheet)
 Help on method create_sheet in module openpyxl.workbook.workbook:
@@ -134,6 +139,8 @@ True
 
 
 + 单元格(cell)有行列组成，行索引从1开始，列索引从A开始，每个单元格用行列的索引标识
+
+
 ```doctest
 >>> ws['e4']=123
 >>> ws['e4']
@@ -145,6 +152,9 @@ True
 ```
 
 + worksheet的cell方法提供了按照函数形式写入数据的方法
+
+
+
 ```dcotest
 cell(coordinate=None, row=None, column=None, value=None) method of openpyxl.worksheet.worksheet.Worksheet instance
     Returns a cell object based on the given coordinates.
@@ -175,6 +185,9 @@ cell(coordinate=None, row=None, column=None, value=None) method of openpyxl.work
 
 
 + Excel中行和列都是从1开始计数的
+
+
+
 ```doctest
 >>> for r in range(5):
 ...     for c in range(4):
@@ -203,11 +216,16 @@ ValueError: Row or column values must be at least 1
 <Cell 'rust'.C4>
 >>> wb.save('example.xlsx')
 ```
+
+
+
 + 要将比较多的数据写入Excel表格中，可以使用循环语句
 ![cells2](cells2.png)
 
 
 + 还可以使用worksheet的append方法实现多行数据的写入
+
+
 
 ```doctest
 >>> ws1.append('cell'+str(i) for i in range(6))
@@ -235,6 +253,9 @@ ValueError: Row or column values must be at least 1
 	- CSV不能进行图文编辑，因为它是一个纯文本文件
 + 在Python的标准库中有专门操作CSV文档的模块 [CSV 文件读写](https://docs.python.org/zh-cn/3/library/csv.html)
 + CSV文档的创建和内容的写入操作
+
+
+
 ```doctest
 >>> import csv
 >>> datas = [['name','number'],['python','111'],['java',222],['c++',333]]
@@ -248,6 +269,9 @@ ValueError: Row or column values must be at least 1
 
 
 + 在Python读取CSV文件的内容
+
+
+
 ```
 >>> f = open('csvfile.csv')
 >>> reader = csv.reader(f)
