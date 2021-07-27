@@ -1,0 +1,594 @@
+## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
+-----------------------------------------------------------------------------------
+
+## 7.3 标准库
+
++ 库(library):听起来是比 包(package),要大的概念，
+    - 但在python中，2者没有区别
+    - 库可以看作“包”或“模块”的集合
++ python标准库包含大量有用的模块；比且随python同时安装到本地
++ [标准库包含但不限于下列模块](https://docs.python.org/zh-cn/3/library/index.html)
+    - 基本支持
+    - 操作系统 os,io,time,argparse,logging,getpass,platform,curses
+    - 网络协议 socket,ssl,email,json,webbrowser,urllib,http
+    - 文件格式 csv,configparser,netrc,xdrlib,plistlib
+    - 数据转换
+    - 线程和进程 threading,multiprocessing,concurrent,subprocess,sched,contextvars
+    - 数据存储 pickle,copyreg,shelve,marshal,dbm,sqlite3
++ python标准库对应的文件`.py`保存在 `sys.path`(`'/usr/lib/python3.9'`,随操作系统不同而不同)的某个目录中
++ `<<Python之禅>>`:`import this`,相当于Python语言的武功秘籍，要反复阅读，认真理解，切实贯彻
+
+
+```
+>>> import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+```
+
+
+
+
+### 7.3.1 sys
+
+
++ sys 系统相关的 **参数** 和 **函数**
++ sys 是一个跟Python解释器关系密切的标准库
++ 常用属性:`sys.path`,`sys.argv`,`sys.exit()`
+
++ sys.argv
+
+
+```
+一个列表，其中包含了被传递给 Python 脚本的命令行参数。
+argv[0] 为脚本的名称（是否是完整的路径名取决于操作系统）。
+如果是通过 Python 解释器的命令行参数 -c 来执行的，
+argv[0] 会被设置成字符串 '-c' 。
+如果没有脚本名被传递给 Python 解释器， 
+argv[0] 为空字符串。
+root@kali-book:~# ./python-laoqi/tt.py  sdjgk 99i0- 00
+argv:
+['./python-laoqi/tt.py', 'sdjgk', '99i0-', '00']
+```
+
++ 以命令行参数的形式向程序文件提供参数，实现2个数值相加
+
+
+```python
+#coding:utf-8
+'''
+    filename:command_add.py
+    add 2 numbers in a command line.
+'''
+import sys
+def add_command(x,y):
+    return x + y
+x = float(sys.argv[1])
+y = float(sys.argv[2])
+print('x + y = ',add_command(x,y))
+test:
+root@kali-book:~/python-laoqi/docs/chap7/code# python3 command_add.py 3.3 4.5
+x + y =  7.8
+```
+
+
+
++ sys.exit([arg])
+```
+    从 Python 中退出。实现方式是抛出一个 SystemExit 异常，因此异常抛出后 try 语句的 finally 分支的清除动作将被触发，这样可能会打断外层的退出尝试。
+    可选参数 arg 可以是表示退出状态的整数（默认为 0），也可以是其他类型的对象。如果它是整数，则 shell 等将 0 视为“成功终止”，非零值视为“异常终止”。大多数系统要求该值的范围是 0--127，否则会产生不确定的结果。某些系统为退出代码约定了特定的含义，但通常尚不完善；Unix 程序通常用 2 表示命令行语法错误，用 1 表示所有其他类型的错误。传入其他类型的对象，如果传入 None 等同于传入 0，如果传入其他对象则将其打印至 stderr，且退出代码为 1。特别地，sys.exit("some error message") 可以在发生错误时快速退出程序。
+    由于 exit() 最终“只是”抛出一个异常，因此当从主线程调用时，只会从进程退出；而异常不会因此被打断。
+    在 3.6 版更改: 在 Python 解释器捕获 SystemExit 后，如果在清理中发生错误（如清除标准流中的缓冲数据时出错），则退出状态码将变为 120。
+>>> a = {'23':23,'abcd':'abc'}
+>>> sys.exit(a)
+{'23': 23, 'abcd': 'abc'}
+root@kali-book:~# echo $?
+1
+```
+
+
+```
+>>> import sys
+>>> type(sys.argv)
+<class 'list'>
+>>> type(sys.path)
+<class 'list'>
+>>> type(sys.exit)
+<class 'builtin_function_or_method'>
+>>> help(sys.exit)
+Help on built-in function exit in module sys:
+exit(status=None, /)
+    Exit the interpreter by raising SystemExit(status).
+    If the status is omitted or None, it defaults to zero (i.e., success).
+    If the status is an integer, it will be used as the system exit status.
+    If it is another kind of object, it will be printed and the system
+    exit status will be one (i.e., failure).
+(END)
+```
+
+
+
+
+### 7.3.2 os
+
++ 本模块提供了一种使用与操作系统相关的功能的便捷式途径。
++ 如果你只是想读写一个文件，请参阅 open()，
++ 如果你想操作文件路径，请参阅 os.path 模块，
++ 如果你想读取通过命令行给出的所有文件中的所有行，请参阅 fileinput 模块。
++ 为了创建临时文件和目录，请参阅 tempfile 模块，
++ 对于高级文件和目录处理，请参阅 shutil 模块。
+
+
+
+
+
++ os模块常用函数
++ 强制将所有内容写入磁盘 `os.sync()`
++ 文件重命名 `os.rename(src,dst)`,`os.replace(src,dst)`,`os.renames(old,new)`
+```
+os.rename(src, dst, *, src_dir_fd=None, dst_dir_fd=None)
+    将文件或目录 src 重命名为 dst。
+os.renames(old, new)
+    递归重命名目录或文件。工作方式类似 rename()，除了会首先创建新路径所需的中间目录。重命名后，将调用 removedirs() 删除旧路径中不需要的目录
+os.replace(src, dst, *, src_dir_fd=None, dst_dir_fd=None)
+    将文件或目录 src 重命名为 dst。
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', '1.txt', 'mypackage', 'c', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+>>> os.rename('1.txt','2.txt')
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', '2.txt', 'mypackage', 'c', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+>>> os.renames('2.txt','3.txt')
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', '3.txt', 'mypackage', 'c', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+>>> os.replace('3.txt','4.txt')
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', '4.txt', 'mypackage', 'c', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+```
+
+
+
++ 查看目录中的文件 `os.listdir(path)`,`os.scandir(path)`
+```
+os.scandir(path='.')
+   返回一个 os.DirEntry 对象的迭代器，它们对应于由 path 指定目录中的条目。 这些条目会以任意顺序生成，并且不包括特殊条目 '.' 和 '..'。 如果有文件在迭代器创建之后在目录中被移除或添加，是否要包括该文件对应的条目并没有规定。
+    如果需要文件类型或文件属性信息，使用 scandir() 代替 listdir() 可以大大提高这部分代码的性能，因为如果操作系统在扫描目录时返回的是 os.DirEntry 对象，则该对象包含了这些信息。所有 os.DirEntry 的方法都可能执行一次系统调用，但是 is_dir() 和 is_file() 通常只在有符号链接时才执行一次系统调用。os.DirEntry.stat() 在 Unix 上始终需要一次系统调用，而在 Windows 上只在有符号链接时才需要。
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', 'mypackage', 'command_add.py', 'template.py', 'exit_program.py']
+>>> list(os.scandir())
+[<DirEntry '__pycache__'>, <DirEntry 'moduleexample.py'>, <DirEntry 'example_import.py'>, <DirEntry 'mypackage'>, <DirEntry 'command_add.py'>, <DirEntry 'template.py'>, <DirEntry 'exit_program.py'>]
+>>> os.scandir()
+<posix.ScandirIterator object at 0x7fa7666f3960>
+>>> list(os.scandir())[0]
+<DirEntry '__pycache__'>
+>>> list(os.scandir())[0].name
+'__pycache__'
+>>> list(os.scandir())[0].path
+'./__pycache__'
+>>> list(os.scandir())[0].is_dir()
+True
+>>> list(os.scandir())[0].is_file()
+False
+>>> list(os.scandir())[0].is_symlink()
+False
+```
+
+
+
++ 删除文件 `os.remove(path)`,`os.unlink(path)`
+```
+os.remove(path, *, dir_fd=None)
+    移除（删除）文件 path。如果 path 是目录，则抛出 IsADirectoryError 异常。请使用 rmdir() 删除目录
+	本函数在语义上与 unlink() 相同。
+os.unlink(path, *, dir_fd=None)
+    移除（删除）文件 path。该函数在语义上与 remove() 相同，unlink 是其传统的 Unix 名称。请参阅 remove() 的文档以获取更多信息
+>>> os.remove('mypackage')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IsADirectoryError: [Errno 21] Is a directory: 'mypackage'
+>>> os.remove('4.txt')
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', 'mypackage', 'c', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+>>> os.unlink()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unlink() missing required argument 'path' (pos 1)
+>>> os.unlink('c')
+>>> os.listdir()
+['__pycache__', 'moduleexample.py', 'example_import.py', 'mypackage', 'command_add.py', 'template.py', 'exit_program.py', 'cmd']
+```
+
+
+
+
+
++ 当前工作目录 `os.getcwd()`
+```
+>>> os.getcwd()
+'/root/python-laoqi/docs/chap7/code'
+```
+
++ 改变目录 `os.chdir(path)`
+```
+>>> os.getcwd()
+'/root/python-laoqi/docs/chap7/code'
+>>> os.chdir('/root')
+>>> os.getcwd()
+'/root'
+```
+
++ 新建目录 `os.mkdir(path,mode)`,`os.makedirs(name,mode)`
+```
+os.mkdir(path, mode=0o777, *, dir_fd=None)
+    创建一个名为 path 的目录，应用以数字表示的权限模式 mode。
+    如果目录已存在，则抛出 FileExistsError 异常。
+os.makedirs(name, mode=0o777, exist_ok=False)
+    递归目录创建函数。与 mkdir() 类似，但会自动创建到达最后一级目录所需要的中间目录。
+    mode 参数会传递给 mkdir()，用来创建最后一级目录，对于该参数的解释，请参阅 mkdir() 中的描述。要设置某些新建的父目录的权限，可以在调用 makedirs() 之前设置 umask。现有父目录的权限不会更改。
+    如果 exist_ok 为 False (默认值)，则如果目标目录已存在将引发 FileExistsError。
+    注解
+    如果要创建的路径元素包含 pardir (如 UNIX 系统中的 "..") makedirs() 将无法明确目标。
+    本函数能正确处理 UNC 路径。
+>>> os.listdir()
+[]
+>>> os.mkdir('d1')
+>>> os.listdir()
+['d1']
+>>> os.mkdir('d1')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileExistsError: [Errno 17] File exists: 'd1'
+>>> os.makedirs('d11/d12/d13/d14')
+>>> os.system('tree')
+.
+├── d1
+└── d11
+    └── d12
+        └── d13
+            └── d14
+5 directories, 0 files
+0
+>>> os.makedirs('d11/d12/d13/d14')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.9/os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [Errno 17] File exists: 'd11/d12/d13/d14'
+>>> os.makedirs('d11/d12/d13/d14/d15')
+>>> os.makedirs('d11/d12/d13')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.9/os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [Errno 17] File exists: 'd11/d12/d13'
+```
+
+
+
++ 删除目录 `os.removedirs(name)`,`os.rmdir(path)`
+```
+os.rmdir(path, *, dir_fd=None)
+    移除（删除）目录 path。如果目录不存在或不为空，则会分别抛出 FileNotFoundError 或 OSError 异常。要删除整个目录树，可以使用 shutil.rmtree()。
+os.removedirs(name)
+    递归删除目录。工作方式类似于 rmdir()，不同之处在于，如果成功删除了末尾一级目录，removedirs() 会尝试依次删除 path 中提到的每个父目录，直到抛出错误为止（但该错误会被忽略，因为这通常表示父目录不是空目录）。例如，os.removedirs('foo/bar/baz') 将首先删除目录 'foo/bar/baz'，然后如果 'foo/bar' 和 'foo' 为空，则继续删除它们。如果无法成功删除末尾一级目录，则抛出 OSError 异常。
+shutil.rmtree(path, ignore_errors=False, onerror=None)
+    删除一个完整的目录树；path 必须指向一个目录（但不能是一个目录的符号链接）
+>>> os.system('tree')
+.
+├── d1
+├── d11
+│   ├── d12
+│   │   └── d13
+│   │       └── d14
+│   │           └── d15
+│   └── d22
+└── d21
+    └── d22
+        └── d23
+10 directories, 0 files
+0
+>>> os.rmdir('d1')
+>>> os.system('tree')
+.
+├── d11
+│   ├── d12
+│   │   └── d13
+│   │       └── d14
+│   │           └── d15
+│   └── d22
+└── d21
+    └── d22
+        └── d23
+9 directories, 0 files
+0
+>>> os.removedirs('d21')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.9/os.py", line 243, in removedirs
+    rmdir(name)
+OSError: [Errno 39] Directory not empty: 'd21'
+>>> os.system('tree')
+.
+├── d11
+│   ├── d12
+│   │   └── d13
+│   │       └── d14
+│   │           └── d15
+│   └── d22
+└── d21
+    └── d22
+        └── d23
+9 directories, 0 files
+0
+>>> shutil.rmtree('d21')
+>>> os.system('tree')
+.
+└── d11
+    ├── d12
+    │   └── d13
+    │       └── d14
+    │           └── d15
+    └── d22
+6 directories, 0 files
+0
+>>> os.removedirs('d11/d12/d13/d14/d15')
+>>> os.system('tree')
+.
+└── d11
+    └── d22
+2 directories, 0 files
+0
+>>> os.makedirs('d11/d12/d13/d14')
+>>> os.system('tree')
+.
+└── d11
+    ├── d12
+    │   └── d13
+    │       └── d14
+    └── d22
+5 directories, 0 files
+0
+>>> shutil.rmtree('d11')
+>>> os.system('tree')
+.
+0 directories, 0 files
+0
+>>> os.system('tree')
+.
+└── mypackage
+    ├── __init__.py
+    ├── __pycache__
+    │   └── __init__.cpython-39.pyc
+    ├── subA
+    │   ├── abasic.py
+    │   ├── apython.py
+    │   ├── __init__.py
+    │   └── __pycache__
+    │       ├── abasic.cpython-39.pyc
+    │       ├── apython.cpython-39.pyc
+    │       └── __init__.cpython-39.pyc
+    ├── subB
+    │   ├── brust.py
+    │   ├── __init__.py
+    │   └── __pycache__
+    │       ├── brust.cpython-39.pyc
+    │       └── __init__.cpython-39.pyc
+    └── top.py
+6 directories, 13 files
+0
+>>> shutil.rmtree('mypackage')
+>>> os.system('tree')
+.
+0 directories, 0 files
+0
+```
+
+
+
+
+
++ 创建链接(link) `os.link() hardlink`,`os.symlink(src,dst) soft`,`ln [-s] src dst`
+```
+>>> os.link('command_add.py','cmd')
+>>> os.symlink('cmd','c')
+root@kali-book:~/python-laoqi/docs/chap7/code# file cmd
+cmd: Python script, ASCII text executable
+root@kali-book:~/python-laoqi/docs/chap7/code# file c
+c: symbolic link to cmd
+root@kali-book:~/python-laoqi/docs/chap7/code# file command_add.py 
+command_add.py: Python script, ASCII text executable
+root@kali-book:~/python-laoqi/docs/chap7/code# ls -il
+总用量 32
+10228664 lrwxrwxrwx 1 root root    3 5月   8 08:14 c -> cmd
+10228674 -rw-r--r-- 2 root root  226 5月   7 06:44 cmd
+10228674 -rw-r--r-- 2 root root  226 5月   7 06:44 command_add.py
+10228672 -rw-r--r-- 1 root root  199 5月   6 07:25 example_import.py
+10228675 -rw-r--r-- 1 root root  568 5月   7 07:08 exit_program.py
+10228671 -rw-r--r-- 1 root root  527 5月   6 05:46 moduleexample.py
+10364558 drwxr-xr-x 5 root root 4096 5月   6 08:11 mypackage
+10228663 drwxr-xr-x 2 root root 4096 5月   6 05:45 __pycache__
+10228662 -rw-r--r-- 1 root root   97 5月   5 06:50 template.py
+#查看文件的硬链接数，ls -l 命令结果中 文件属性和用户id 中间的1列数字 为硬链接数 
+#查找和file的inode号相同的所有文件
+# find path -samefile file_name 
+# find path -inum   file_inum
+root@kali-book:~/python-laoqi/docs/chap7/code# find . -samefile  cmd
+./command_add.py
+./cmd
+root@kali-book:~/python-laoqi/docs/chap7/code# find . -inum 10228674
+./command_add.py
+./cmd
+```
+
+
+
++ 生成目录树中的文件名 `os.walk(top)`
+```
+>>> os.walk('mypackage')
+<generator object _walk at 0x7fa7666f3b30>
+>>> list(os.walk('mypackage'))
+[('mypackage', ['__pycache__', 'subA', 'subB'], ['top.py', '__init__.py']), ('mypackage/__pycache__', [], ['__init__.cpython-39.pyc']), ('mypackage/subA', ['__pycache__'], ['apython.py', 'abasic.py', '__init__.py']), ('mypackage/subA/__pycache__', [], ['abasic.cpython-39.pyc', 'apython.cpython-39.pyc', '__init__.cpython-39.pyc']), ('mypackage/subB', ['__pycache__'], ['__init__.py', 'brust.py']), ('mypackage/subB/__pycache__', [], ['brust.cpython-39.pyc', '__init__.cpython-39.pyc'])]
+ os.walk(top, topdown=True, onerror=None, followlinks=False)
+    生成目录树中的文件名，方式是按上->下或下->上顺序浏览目录树。对于以 top 为根的目录树中的每个目录（包括 top 本身），它都会生成一个三元组 (dirpath, dirnames, filenames)。
+    dirpath 是表示目录路径的字符串。 dirnames 是 dirpath 中子目录名称组成的列表 (excluding '.' and '..')。 filenames 是 dirpath 中非目录文件名称组成的列表。 请注意列表中的名称不带路径部分。
+```
+
+
+
++ 操作系统信息 `os.name`,`os.uname()`
+```
+>>> os.name
+'posix'
+>>> os.uname()
+posix.uname_result(sysname='Linux', nodename='kali-book', release='5.5.0-kali2-amd64', version='#1 SMP Debian 5.5.17-1kali1 (2020-04-21)', machine='x86_64')
+os.uname()
+    返回当前操作系统的识别信息。返回值是一个有5个属性的对象：
+        sysname - 操作系统名
+        nodename - 机器在网络上的名称（需要先设定）
+        release - 操作系统发行信息
+        version - 操作系统版本信息
+        machine - 硬件标识符
+    为了向后兼容，该对象也是可迭代的，像是一个按照 sysname，nodename，release，version，和 machine 顺序组成的元组。
+    有些系统会将 nodename 截短为 8 个字符或截短至前缀部分；获取主机名的一个更好方式是 socket.gethostname() 或甚至可以用 socket.gethostbyaddr(socket.gethostname())。
+    可用性: 较新的 Unix 版本。
+    在 3.3 版更改: 返回结果的类型由元组变成一个类似元组的对象，同时具有命名的属性。
+```
+
++ 系统的cpu数量 `os.cpu_count()`
+```
+>>> os.cpu_count()
+4
+```
+
++ 执行操作系统命令 `os.popen(cmd,mode)`,`os.system(cmd)`,`subprocess.call(cmd,shell=True) call(['ls','-1'])`
+```
+>>> r = os.system('ls -1')
+command_add.py
+example_import.py
+exit_program.py
+moduleexample.py
+mypackage
+__pycache__
+template.py
+>>> r
+0
+>>> r = os.popen('ls -1')
+>>> r
+<os._wrap_close object at 0x7fa7666964c0>
+>>> r.read()
+'command_add.py\nexample_import.py\nexit_program.py\nmoduleexample.py\nmypackage\n__pycache__\ntemplate.py\n'
+>>> r = os.popen('ls -1')
+>>> r.readlines()
+['command_add.py\n', 'example_import.py\n', 'exit_program.py\n', 'moduleexample.py\n', 'mypackage\n', '__pycache__\n', 'template.py\n']
+>>> subprocess.call(['ls', '-1'])
+command_add.py
+example_import.py
+exit_program.py
+moduleexample.py
+mypackage
+__pycache__
+template.py
+0
+>>> subprocess.call('ls -1',shell=True)
+command_add.py
+example_import.py
+exit_program.py
+moduleexample.py
+mypackage
+__pycache__
+template.py
+0
+```
+
+### 7.3.3 json
+
+
+
++ Pickle 协议和 JSON (JavaScript Object Notation) 间有着本质的不同：
+    - JSON 是一个文本序列化格式（它输出 unicode 文本，尽管在大多数时候它会接着以 utf-8 编码），而 pickle 是一个二进制序列化格式；
+    - JSON 是我们可以直观阅读的，而 pickle 不是；
+    - JSON是可互操作的，在Python系统之外广泛使用，而pickle则是Python专用的；
+    - 默认情况下，JSON 只能表示 Python 内置类型的子集，不能表示自定义的类；但 pickle 可以表示大量的 Python 数据类型（可以合理使用 Python 的对象内省功能自动地表示大多数类型，复杂情况可以通过实现 specific object APIs 来解决）。
+    - 不像pickle，对一个不信任的JSON进行反序列化的操作本身不会造成任意代码执行漏洞。
+
++ JSON(JavaScriptObjectNotation):是一种轻量级的数据交换语言，以文字为基础，且易于让人阅读。
++ Python中有JSON标准库，主要是执行 ***序列化*** 和 ***反序列化*** 功能
++ 序列化(encoding/serialization/flattening/picking):把一个Python对象编码转化成JSON字符串
++ 反序列化(decoding):把JSON格式字符串解码转换为Python数据对象
+
+
++ `json.dumps(obj, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw)`
+    - 使用这个 [转换表](https://docs.python.org/zh-cn/3.9/library/json.html#py-to-json-table) 将 obj 序列化为 JSON 格式的 str。 其参数的含义与 dump() 中的相同。
+    - ***注解:*** JSON 中的键-值对中的键永远是 str 类型的。当一个对象被转化为 JSON 时，字典中所有的键都会被强制转换为字符串。这所造成的结果是字典被转换为 JSON 然后转换回字典时可能和原来的不相等。换句话说，如果 x 具有非字符串的键，则有 loads(dumps(x)) != x。
++ `json.loads(s, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)`
+    - 使用这个 [转换表](https://docs.python.org/zh-cn/3.9/library/json.html#json-to-py-table) 将 s (一个包含 JSON 文档的 str, bytes 或 bytearray 实例) 反序列化为 Python 对象。
+    - 其他参数的含义与 load() 中的相同。
+    - 如果反序列化的数据不是有效 JSON 文档，引发 JSONDecodeError 错误。
+
+```
+>>> import json
+>>> data = [{'name':'laoqi','lang':('python','english'),'age':'40'}]
+>>> dj = json.dumps(data)
+>>> dj
+'[{"name": "laoqi", "lang": ["python", "english"], "age": "40"}]'
+>>> type(data);type(dj)
+<class 'list'>
+<class 'str'>
+>>> dp = json.loads(dj)
+>>> dp
+[{'name': 'laoqi', 'lang': ['python', 'english'], 'age': '40'}]
+>>> type(dp)
+<class 'list'>
+>>> dj1=json.dumps(data,indent=4)
+>>> dj1
+'[\n    {\n        "name": "laoqi",\n        "lang": [\n            "python",\n            "english"\n        ],\n        "age": "40"\n    }\n]'
+>>> print(dj1)
+[
+    {
+        "name": "laoqi",
+        "lang": [
+            "python",
+            "english"
+        ],
+        "age": "40"
+    }
+]
+>>> print(json.dumps(data,indent=2,sort_keys=True))
+[
+  {
+    "age": "40",
+    "lang": [
+      "python",
+      "english"
+    ],
+    "name": "laoqi"
+  }
+]
+```
+
+
+
+
+
+-----------------------------------------------------------------------------------
+## [返回目录][catalogue]or[上一章][pre_chap]or[下一章][next_chap]
+[catalogue]: ../2021-01-21-chap7.md
+[pre_chap]: chap7_2_package.md
+[next_chap]: chap7_4_third_party_package.md
