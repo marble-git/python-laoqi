@@ -303,7 +303,35 @@ c++,333
 
 
 
++ Writer对象: DictWriter类的实例 或 writer函数返回的对象
++ 由`csv.writer()`函数返回的Writer对象的方法:writerow,writerows,dialect
++ 由`csv.DictWriter`类实例化的 Writer还具有 writeheader 方法
++ DictWriter 和 DictReader 的作用是将CSV文档转换为类字典对象，通过类字典的操作实现数据读写
 
+```doctest
+>>> with open('names.csv','wt',newline='') as f:
+...     fieldnames = ['first_name','last name']
+...     writer = csv.DictWriter(f,fieldnames)
+...     writer.writeheader()
+...     writer.writerow({'first_name':'Baked','last name':'Beans'})
+...     writer.writerow({'first_name':'Lovely','last name':'Spam'})
+...     writer.writerow({'first_name':'Wonderful','last name':'Spam'})
+... 
+22
+13
+13
+16
+>>> with open('names.csv','rt',newline='') as f:
+...     reader = csv.DictReader(f)
+...     print(reader.fieldnames)
+...     for row in reader:
+...             print(row['last name'],row['first_name'])
+... 
+['first_name', 'last name']
+Beans Baked
+Spam Lovely
+Spam Wonderful
+```
 
 
 
